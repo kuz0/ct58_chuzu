@@ -5,30 +5,23 @@
 # See documentation in:
 # http://doc.scrapy.org/en/latest/topics/items.html
 
-import scrapy
+from scrapy import Item, Field
 
 
-class City58Item(scrapy.Item):
-    # define the fields for your item here like:
-    name = scrapy.Field()
-    price = scrapy.Field()
-    last_updated = scrapy.Field()
+class XiaoquInfoItem(Item):
+    id = Field()
+    name = Field()
+    reference_price = Field()
+    address = Field()
+    times = Field()
 
 
-class City58ItemXiaoqu(scrapy.Item):
-    id = scrapy.Field()
-    name = scrapy.Field()
-    reference_price = scrapy.Field()
-    address = scrapy.Field()
-    times = scrapy.Field()
-
-
-class City58ItemXiaoquChuzuInfo(scrapy.Item):
-    id = scrapy.Field()
-    name = scrapy.Field()
-    zu_price = scrapy.Field()
-    type = scrapy.Field()
-    mianji = scrapy.Field()
-    chuzu_price_per = scrapy.Field()
-    url = scrapy.Field()
-    price_per = scrapy.Field()
+class ZufangInfoItem(Item):
+    id = Field()
+    name = Field()
+    zu_price = Field()
+    type = Field()
+    area = Field()
+    zu_price_per = Field()
+    url = Field()
+    price_per = Field()

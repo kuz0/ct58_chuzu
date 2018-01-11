@@ -11,12 +11,10 @@ def parse(response):
     :return:
     """
 
-    result = set()  # 去重
     doc = pq(response.text)
-    tr_list = doc('.tbimg > tbody:nth-child(2) > tr').items()
-    for tr in tr_list:
-        url = tr('td:nth-child(2) > ul > li > a').attr('href')
-        result.add(url)
+    a_list = doc('tr > td.info > ul > li.tli1 > a.t').items()
+    result = [a.attr('href') for a in a_list]
+    result = set(result)  # 去重
     return result
 
 
@@ -31,6 +29,7 @@ def parse_xiaoqu_info(response):
 
     result = dict()
     doc = pq(response.text)
+    result['id'] = response.url.split('/')[4]
     result['name'] = doc('.xiaoquh1').text()
     result['reference_price'] = doc('.moneyColor').text()
     result['address'] = doc('.bhrInfo > dd:nth-child(3) > span:nth-child(3)').text().split()[0]
@@ -40,7 +39,7 @@ def parse_xiaoqu_info(response):
 
 def parse_ershou_price_list(response):
     """
-    url_ = 'http://cd.58.com/xiaoqu/jinhaiantianfuhuayuanshuicheng/ershoufang/'
+    url_ = 'http://cd.58.com/xiaoqu/jinhaiantianfuhuayuanshuicheng/ershoufang/pn_1/'
     匹配二手房列表页面的所有房价信息
     返回一个价格的列表list
     :param response:
@@ -49,8 +48,8 @@ def parse_ershou_price_list(response):
 
     doc = pq(response.text)
     price_tag = doc('td.tc > span:nth-child(3)').text().split()
-    price_tag = [i[:-3] for i in price_tag]
-    return price_tag
+    price_list = [i[:-3] for i in price_tag]
+    return price_list
 
 
 def parse_zufang_detail_url(response):
@@ -89,7 +88,7 @@ if __name__ == '__main__':
     import requests
     from pprint import pprint
 
-    url_ = 'http://cd.58.com/zufang/32699406202930x.shtml'
+    url_ = 'http://cd.58.com/xiaoqu/jinhaiantianfuhuayuanshuicheng/'
     response_ = requests.get(url_)
-    result_ = parse_zufang_info(response_)
+    result_ = parse_xiaoqu_info(response_)
     pprint(result_)
