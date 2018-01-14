@@ -42,7 +42,7 @@ class Ct58ChuzuSpider(Spider):
         yield Request(url,
                       callback=self.parse_ershou_price_list,
                       errback=self.err_back,
-                      mata={'id': item['id']},
+                      meta={'id': item['id']},
                       priority=3)
 
         # 出租房
@@ -50,7 +50,7 @@ class Ct58ChuzuSpider(Spider):
         yield Request(url_,
                       callback=self.parse_zufang_detail_url,
                       errback=self.err_back,
-                      mata={'id': item['id']},
+                      meta={'id': item['id']},
                       priority=2)
 
     def parse_ershou_price_list(self, response):
@@ -73,7 +73,7 @@ class Ct58ChuzuSpider(Spider):
         data = parse_zufang_info(response)
         item = ZufangInfoItem()
         item.update(data)
-        item['id'] = response.mata['id']
+        item['id'] = response.meta['id']
         item['url'] = response.url
         yield item
 

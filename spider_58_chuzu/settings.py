@@ -52,9 +52,9 @@ DOWNLOAD_DELAY = 3
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'spider_58_chuzu.middlewares.MyCustomDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   'spider_58_chuzu.middlewares.ProxyMiddleware': 543,
+}
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -64,9 +64,11 @@ DOWNLOAD_DELAY = 3
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'spider_58_chuzu.pipelines.Spider58ChuzuPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'spider_58_chuzu.pipelines.HandleZuFangPipeline': 300,
+   'spider_58_chuzu.pipelines.HandleFangjiaPipeline': 310,
+   'spider_58_chuzu.pipelines.Ct58Pipeline': 320
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -88,3 +90,6 @@ DOWNLOAD_DELAY = 3
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+MONGODB_URI = 'localhost'
+MONGODB_DATABASE = 'ct58'
